@@ -3,26 +3,68 @@ import mayflower.Mayflower;
 import mayflower.World;
 import mayflower.*;
 
+import java.util.ArrayList;
+
 public class GameWorld extends World
 {
-    private EnergyBar bar;
+    private ArrayList<Actor> energyBar;
+    private EnergyBar energy;
     private boolean gameOver;
+    private Collectable test = new Collectable();
+    private SpaceshipActor spaceship = new SpaceshipActor();
+    private SpaceshipController control;
     public GameWorld()
     {
-        bar = new EnergyBar(this);
-        bar.addEnergyBar();
+        energy = new EnergyBar();
+        energyBar = energy.getEnergyBar();
+        addEnergyBar();
+        setBackground("img/background.jpg");
+        addObject(test,100,100);
+        addEnergyBar();
+        addObject(spaceship,500,350);
+        control = new SpaceshipController(spaceship);
+    }
+    public void addEnergyBar()
+    {
+        int y = 728;
+        int x = 1006;
+        for(int i=0; i<5;i++)
+        {
+            addObject(energyBar.get(i),x,y);
+            System.out.println("Added energy piece @ "+x+" "+y);
+            System.out.println(energyBar.get(i));
+            x -= 11;
+        }
     }
     @Override
     public void act()
     {
-        if(Mayflower.wasKeyDown(Keyboard.KEY_SPACE))
+        if(Mayflower.mouseClicked(test))
         {
-            gameOver = bar.remove();
+            gameOver = energy.remove(this);
+            System.out.println("GameOver is: "+gameOver);
         }
         if(gameOver)
         {
             World startingWorld = new StartMenu();
             Mayflower.setWorld(startingWorld);
         }
+        if(Mayflower.isKeyDown(Keyboard.KEY_A))
+        {
+            control.rotateLeft();
+        }
+        if(Mayflower.isKeyDown(Keyboard.KEY_D))
+        {
+            control.rotateRight();
+        }
+        if(Mayflower.isKeyDown(Keyboard.KEY_W))
+        {
+            control.increaseThrust();
+        }
+        if(Mayflower.isKeyDown(Keyboard.KEY_S))
+        {
+            control.decreaseThrust();
+        }
+        spaceship.move(control.getThrust());
     }
 }
