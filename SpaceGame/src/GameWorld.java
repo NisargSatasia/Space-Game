@@ -13,6 +13,9 @@ public class GameWorld extends World
     private Collectable test = new Collectable();
     private SpaceshipActor spaceship = new SpaceshipActor();
     private SpaceshipController control;
+    private Crosshair crosshair;
+    private WeaponsActor weapons;
+    private WeaponsController controlWeapons;
     public GameWorld()
     {
         energy = new EnergyBar();
@@ -23,6 +26,11 @@ public class GameWorld extends World
         addEnergyBar();
         addObject(spaceship,500,350);
         control = new SpaceshipController(spaceship);
+        crosshair = new Crosshair();
+        addObject(crosshair,0,0);
+        weapons = new WeaponsActor();
+        addObject(weapons,500,350);
+        controlWeapons = new WeaponsController(weapons,crosshair,control);
     }
     public void addEnergyBar()
     {
@@ -39,6 +47,8 @@ public class GameWorld extends World
     @Override
     public void act()
     {
+        controlWeapons.updatePos();
+        controlWeapons.updateRotation();
         if(Mayflower.mouseClicked(test))
         {
             gameOver = energy.remove(this);
@@ -66,5 +76,6 @@ public class GameWorld extends World
             control.decreaseThrust();
         }
         spaceship.move(control.getThrust());
+
     }
 }
