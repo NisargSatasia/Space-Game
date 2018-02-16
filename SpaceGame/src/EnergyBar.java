@@ -24,6 +24,7 @@ public class EnergyBar
         for(int i=0; i<5;i++)
         {
             world.addObject(energyLevel.get(i),x,y);
+            System.out.println("Added energy piece @ "+x+" "+y);
             x -= 11;
         }
     }
@@ -33,6 +34,7 @@ public class EnergyBar
         {
             energyLevel.remove(removeThis);
             removeThis--;
+            System.out.println("Removed");
             return false;
         }
         return true;
