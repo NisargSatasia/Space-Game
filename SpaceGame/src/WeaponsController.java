@@ -11,13 +11,21 @@ public class WeaponsController
         cross = c;
         spaceship = s;
     }
-    public void updateRotation()
+    public void updateCrosshairPos()
+    {
+        cross.setLocation(Mayflower.getMouseInfo().getX()-25,Mayflower.getMouseInfo().getY());
+
+    }
+    public void updateGunPos()
+    {
+        weapon.setLocation(spaceship.getPosX(),spaceship.getPosY());
+    }
+    public void updateGunRotation()
     {
         weapon.turnTowards(cross);
     }
-    public void updatePos()
+    public void resetRotation()
     {
-        cross.setLocation(Mayflower.getMouseInfo().getX(),Mayflower.getMouseInfo().getY());
-        weapon.setLocation(spaceship.getPosX(),spaceship.getPosY());
+        weapon.setRotation(spaceship.currentAngle());
     }
 }

@@ -47,8 +47,6 @@ public class GameWorld extends World
     @Override
     public void act()
     {
-        controlWeapons.updatePos();
-        controlWeapons.updateRotation();
         if(Mayflower.mouseClicked(test))
         {
             gameOver = energy.remove(this);
@@ -76,6 +74,9 @@ public class GameWorld extends World
             control.decreaseThrust();
         }
         spaceship.move(control.getThrust());
-
+        controlWeapons.updateCrosshairPos();
+        controlWeapons.resetRotation();
+        controlWeapons.updateGunPos();
+        controlWeapons.updateGunRotation();
     }
 }
