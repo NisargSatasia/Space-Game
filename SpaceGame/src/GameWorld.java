@@ -87,7 +87,7 @@ public class GameWorld extends World
             Laser l = new Laser();
             addObject(l,controlWeapons.getXPos()+16,controlWeapons.getYPos()+24);
             l.setRotation(controlWeapons.currentAngle());
-            l.move();
+            l.move(64);
         }
 
     }
