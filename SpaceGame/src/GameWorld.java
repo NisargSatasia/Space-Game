@@ -17,7 +17,6 @@ public class GameWorld extends World
     private AsteroidsController asteroids;
     private SmallAsteroid smallAsteroid = new SmallAsteroid();
     private LargeAsteroids largeAsteroids = new LargeAsteroids();
-
     private Crosshair crosshair;
     private WeaponsActor weapons;
     private WeaponsController controlWeapons;
@@ -51,10 +50,11 @@ public class GameWorld extends World
     }
     public void addEnergyBar()
     {
-        int y = 728;
-        int x = 1006;
+
         for(int i=0; i<5;i++)
         {
+            int y = 728;
+            int x = 1006;
             addObject(energyBar.get(i),x,y);
             System.out.println("Added energy piece @ "+x+" "+y);
             System.out.println(energyBar.get(i));
@@ -65,9 +65,11 @@ public class GameWorld extends World
     public void act()
     {
         // make the actors bound.
-        //if(Mayflower.){
-
+        //if(control.getPosX()>= (1008-32) || control.getPosX()<=(0+32) || control.getPosY()>= (728-32) || control.getPosY()>= (0+32) ){
+        //   control.setPos();
         //}
+        //System.out.println(control.getPosX() + "        " + control.getPosY());
+
 
         if(gameOver)
         {
