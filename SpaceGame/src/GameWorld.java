@@ -14,13 +14,15 @@ public class GameWorld extends World
     private Collectable test = new Collectable();
     private SpaceshipActor spaceship = new SpaceshipActor();
     private SpaceshipController control;
-    private AsteroidsController asteroids;
-    private SmallAsteroid smallAsteroid = new SmallAsteroid();
-    private LargeAsteroids largeAsteroids = new LargeAsteroids();
 
     private Crosshair crosshair;
     private WeaponsActor weapons;
     private WeaponsController controlWeapons;
+
+    private long damageCooldown = 1000;
+    private long startCooldown;
+    private long currentTime;
+    private boolean wasHit;
 
     public GameWorld()
     {
@@ -33,13 +35,6 @@ public class GameWorld extends World
         addObject(spaceship,500,350);
         control = new SpaceshipController(spaceship);
 
-
-        // small asteroids;
-        addObject(smallAsteroid,300,300);
-        asteroids = new AsteroidsController(smallAsteroid);
-        //large asteroids;
-        addObject(largeAsteroids,200,200);
-        asteroids = new AsteroidsController(largeAsteroids);
 
 
         crosshair = new Crosshair();
@@ -64,11 +59,7 @@ public class GameWorld extends World
     @Override
     public void act()
     {
-        // make the actors bound.
-        //if(Mayflower.){
-
-        //}
-
+        currentTime = System.currentTimeMillis();
         if(gameOver)
         {
             World startingWorld = new StartMenu();
@@ -93,10 +84,16 @@ public class GameWorld extends World
         List<Actor> intersecting = spaceship.getIntersection();
         for(Actor a : intersecting)
         {
-            if(a instanceof Laser || a instanceof Asteroids)
-            {
+            if((a instanceof Laser || a instanceof Asteroids) && !wasHit) {
                 gameOver = energy.remove(this);
+                startCooldown = currentTime;
+                wasHit = true;
             }
+            if(currentTime-startCooldown>=damageCooldown && wasHit)
+            {
+                wasHit = false;
+            }
+
         }
         spaceship.move(control.getThrust());
         controlWeapons.resetRotation();
