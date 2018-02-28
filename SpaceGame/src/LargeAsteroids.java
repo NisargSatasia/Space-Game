@@ -1,13 +1,13 @@
 import mayflower.*;
 
-public class LargeAsteroids extends Actor{
+public class LargeAsteroids extends Asteroids{
 
-    private int dir;
+    //private int dir;
     //private Timer timer;
 
     public LargeAsteroids()
     {
-        setImage("img/largeAsteroid");
+        setImage("img/LargeAsteroid.png");
 
     }
     public void act()
