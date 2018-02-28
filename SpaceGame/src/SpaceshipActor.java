@@ -9,11 +9,6 @@ public class SpaceshipActor extends Actor
     @Override
     public void act()
     {
-        if(this.isTouching(LargeAsteroids.class))
-        {
-            gameOver = energy.remove(this);
-            System.out.println("GameOver is: "+gameOver);
-        }
 
 
     }

@@ -80,19 +80,19 @@ public class GameWorld extends World
             World startingWorld = new StartMenu();
             Mayflower.setWorld(startingWorld);
         }
-        if(Mayflower.isKeyDown(Keyboard.KEY_LEFT))
+        if(Mayflower.isKeyDown(Keyboard.KEY_A))
         {
             control.rotateLeft();
         }
-        if(Mayflower.isKeyDown(Keyboard.KEY_RIGHT))
+        if(Mayflower.isKeyDown(Keyboard.KEY_D))
         {
             control.rotateRight();
         }
-        if(Mayflower.isKeyDown(Keyboard.KEY_UP))
+        if(Mayflower.isKeyDown(Keyboard.KEY_W))
         {
             control.increaseThrust();
         }
-        if(Mayflower.isKeyDown(Keyboard.KEY_DOWN))
+        if(Mayflower.isKeyDown(Keyboard.KEY_S))
         {
             control.decreaseThrust();
         }
@@ -114,7 +114,7 @@ public class GameWorld extends World
             Laser l = new Laser();
             addObject(l,controlWeapons.getXPos()+16,controlWeapons.getYPos()+24);
             l.setRotation(controlWeapons.currentAngle());
-            l.move();
+            l.move(64);
         }
 
     }
