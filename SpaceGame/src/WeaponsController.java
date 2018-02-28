@@ -22,10 +22,22 @@ public class WeaponsController
     }
     public void updateGunRotation()
     {
-        weapon.turnTowards(cross);
+        weapon.turnTowards(cross.getX(),cross.getY());
     }
     public void resetRotation()
     {
         weapon.setRotation(spaceship.currentAngle());
+    }
+    public int getXPos()
+    {
+        return weapon.getX();
+    }
+    public int getYPos()
+    {
+        return weapon.getY();
+    }
+    public int currentAngle()
+    {
+        return weapon.getRotation();
     }
 }

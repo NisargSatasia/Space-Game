@@ -23,7 +23,7 @@ public class EnergyBar
     }
     public boolean remove(GameWorld w)
     {
-        if(removeThis > 0)
+        if(removeThis >= 0)
         {
             w.removeObject(energyLevel.get(removeThis));
             removeThis--;

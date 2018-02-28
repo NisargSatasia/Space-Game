@@ -64,12 +64,6 @@ public class GameWorld extends World
     @Override
     public void act()
     {
-
-        if(Mayflower.mouseClicked(test))
-        {
-            gameOver = energy.remove(this);
-            System.out.println("GameOver is: "+gameOver);
-        }
         // make the actors bound.
         //if(Mayflower.){
 
@@ -96,12 +90,12 @@ public class GameWorld extends World
         {
             control.decreaseThrust();
         }
-        List<Laser> intersecting = spaceship.getIntersection();
+        List<Actor> intersecting = spaceship.getIntersection();
         for(Actor a : intersecting)
         {
-            if(a instanceof Laser)
+            if(a instanceof Laser || a instanceof Asteroids)
             {
-                energy.remove(this);
+                gameOver = energy.remove(this);
             }
         }
         spaceship.move(control.getThrust());
@@ -116,6 +110,5 @@ public class GameWorld extends World
             l.setRotation(controlWeapons.currentAngle());
             l.move(64);
         }
-
     }
 }
