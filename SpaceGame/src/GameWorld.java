@@ -14,15 +14,14 @@ public class GameWorld extends World
     private Collectable test = new Collectable();
     private SpaceshipActor spaceship = new SpaceshipActor();
     private SpaceshipController control;
-<<<<<<< HEAD
     private AsteroidsController asteroids;
     private SmallAsteroid smallAsteroid = new SmallAsteroid();
     private LargeAsteroids largeAsteroids = new LargeAsteroids();
-=======
+
     private Crosshair crosshair;
     private WeaponsActor weapons;
     private WeaponsController controlWeapons;
->>>>>>> 34cfd423e1c11bf4735c74fff8991151e1ce350d
+
     public GameWorld()
     {
         energy = new EnergyBar();
@@ -33,7 +32,7 @@ public class GameWorld extends World
         addEnergyBar();
         addObject(spaceship,500,350);
         control = new SpaceshipController(spaceship);
-<<<<<<< HEAD
+
 
         // small asteroids;
         addObject(smallAsteroid,300,300);
@@ -42,13 +41,13 @@ public class GameWorld extends World
         addObject(largeAsteroids,200,200);
         asteroids = new AsteroidsController(largeAsteroids);
 
-=======
+
         crosshair = new Crosshair();
         addObject(crosshair,0,0);
         weapons = new WeaponsActor();
         addObject(weapons,500,350);
         controlWeapons = new WeaponsController(weapons,crosshair,control);
->>>>>>> 34cfd423e1c11bf4735c74fff8991151e1ce350d
+
     }
     public void addEnergyBar()
     {
@@ -65,7 +64,7 @@ public class GameWorld extends World
     @Override
     public void act()
     {
-<<<<<<< HEAD
+
         if(Mayflower.mouseClicked(test))
         {
             gameOver = energy.remove(this);
@@ -75,8 +74,7 @@ public class GameWorld extends World
         //if(Mayflower.){
 
         //}
-=======
->>>>>>> 34cfd423e1c11bf4735c74fff8991151e1ce350d
+
         if(gameOver)
         {
             World startingWorld = new StartMenu();
