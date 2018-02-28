@@ -1,5 +1,4 @@
-import mayflower.Actor;
-
+import mayflower.*;
 import java.util.ArrayList;
 
 public class EnergyBar

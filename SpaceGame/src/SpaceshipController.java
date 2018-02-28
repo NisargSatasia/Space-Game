@@ -28,6 +28,10 @@ public class SpaceshipController
         if(thrust>5)
             thrust--;
     }
+    public int currentAngle()
+    {
+        return spaceship.getRotation();
+    }
     public int getThrust()
     {
         return thrust;
