@@ -4,6 +4,7 @@ import mayflower.World;
 import mayflower.*;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class GameWorld extends World
 {
@@ -47,11 +48,6 @@ public class GameWorld extends World
     @Override
     public void act()
     {
-        if(Mayflower.mouseClicked(test))
-        {
-            gameOver = energy.remove(this);
-            System.out.println("GameOver is: "+gameOver);
-        }
         if(gameOver)
         {
             World startingWorld = new StartMenu();
@@ -73,10 +69,26 @@ public class GameWorld extends World
         {
             control.decreaseThrust();
         }
+        List<Laser> intersecting = spaceship.getIntersection();
+        for(Actor a : intersecting)
+        {
+            if(a instanceof Laser)
+            {
+                energy.remove(this);
+            }
+        }
         spaceship.move(control.getThrust());
-        controlWeapons.updateCrosshairPos();
         controlWeapons.resetRotation();
+        controlWeapons.updateCrosshairPos();
         controlWeapons.updateGunPos();
         controlWeapons.updateGunRotation();
+        if(Mayflower.mouseClicked(crosshair))
+        {
+            Laser l = new Laser();
+            addObject(l,controlWeapons.getXPos()+16,controlWeapons.getYPos()+24);
+            l.setRotation(controlWeapons.currentAngle());
+            l.move();
+        }
+
     }
 }
