@@ -8,6 +8,6 @@ public class Laser extends Actor
     }
     @Override public void act()
     {
-        move(10);
+
     }
 }
