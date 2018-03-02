@@ -33,6 +33,7 @@ public class GameWorld extends World
 
     public GameWorld()
     {
+
         asteroidTimerStart = currentTime;
         energy = new EnergyBar();
         energyBar = energy.getEnergyBar();
@@ -81,8 +82,8 @@ public class GameWorld extends World
         List<Actor> objects = this.getObjects();
         if(gameOver)
         {
-            World startingWorld = new StartMenu();
-            Mayflower.setWorld(startingWorld);
+            World g = new GameOver();
+            Mayflower.setWorld(g);
         }
         if(Mayflower.isKeyDown(Keyboard.KEY_A))
         {
