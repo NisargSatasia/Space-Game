@@ -5,6 +5,7 @@ import mayflower.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class GameWorld extends World
 {
@@ -23,11 +24,16 @@ public class GameWorld extends World
 
     private long damageCooldown = 1000;
     private long startCooldown;
-    private long currentTime;
+    private long currentTime = System.currentTimeMillis();
     private boolean wasHit;
+
+    private Random rand = new Random(System.currentTimeMillis()+32);
+    private long asteroidTimer = 2000;
+    private long asteroidTimerStart;
 
     public GameWorld()
     {
+        asteroidTimerStart = currentTime;
         energy = new EnergyBar();
         energyBar = energy.getEnergyBar();
         addEnergyBar();
@@ -72,7 +78,7 @@ public class GameWorld extends World
 
 
         currentTime = System.currentTimeMillis();
-
+        List<Actor> objects = this.getObjects();
         if(gameOver)
         {
             World startingWorld = new StartMenu();
@@ -94,6 +100,86 @@ public class GameWorld extends World
         {
             control.decreaseThrust();
         }
+        if(currentTime-asteroidTimerStart >= asteroidTimer)
+        {
+            int a = rand.nextInt(4);
+            if(a == 0)
+            {
+                int randX = rand.nextInt(1024);
+                int type = rand.nextInt(2);
+                Asteroids ast;
+                if(type == 0)
+                {
+                   ast = new SmallAsteroid();
+                }
+                else if(type == 1)
+                {
+                    ast = new LargeAsteroids();
+                }
+                else ast = new LargeAsteroids();
+                addObject(ast,randX,-100);
+                int locX = rand.nextInt(808)+100;
+                int locY = rand.nextInt(528)+100;
+                ast.turnTowards(locX,locY);
+            }
+            else if(a == 1)
+            {
+                int randY = rand.nextInt(768);
+                int type = rand.nextInt(2);
+                Asteroids ast;
+                if(type == 0)
+                {
+                    ast = new SmallAsteroid();
+                }
+                else if(type == 1)
+                {
+                    ast = new LargeAsteroids();
+                }
+                else ast = new LargeAsteroids();
+                addObject(ast,1124,randY);
+                int locX = rand.nextInt(808)+100;
+                int locY = rand.nextInt(528)+100;
+                ast.turnTowards(locX,locY);
+            }
+            else if(a == 2)
+            {
+                int randX = rand.nextInt(1024);
+                int type = rand.nextInt(2);
+                Asteroids ast;
+                if(type == 0)
+                {
+                    ast = new SmallAsteroid();
+                }
+                else if(type == 1)
+                {
+                    ast = new LargeAsteroids();
+                }
+                else ast = new LargeAsteroids();
+                addObject(ast,randX,868);
+                int locX = rand.nextInt(808)+100;
+                int locY = rand.nextInt(528)+100;
+                ast.turnTowards(locX,locY);
+            }
+            else
+            {
+                int randY = rand.nextInt(768);
+                int type = rand.nextInt(2);
+                Asteroids ast;
+                if(type == 0)
+                {
+                    ast = new SmallAsteroid();
+                }
+                else if(type == 1)
+                {
+                    ast = new LargeAsteroids();
+                }
+                else ast = new LargeAsteroids();
+                addObject(ast,-100,randY);
+                int locX = rand.nextInt(808)+100;
+                int locY = rand.nextInt(528)+100;
+                ast.turnTowards(locX,locY);
+            }
+        }
         List<Actor> intersecting = spaceship.getIntersection();
         for(Actor a : intersecting)
         {
@@ -107,6 +193,71 @@ public class GameWorld extends World
                 wasHit = false;
             }
 
+        }
+        for(Actor a : objects)
+        {
+            if(a instanceof LargeAsteroids)
+            {
+                List<Actor> temp = ((LargeAsteroids) a).getIntersection();
+                for(Actor b : temp)
+                {
+                    if(b instanceof SpaceshipActor)
+                    {
+                        int j = a.getX();
+                        int k = a.getY();
+                        removeObject(a);
+                        SmallAsteroid tempA = new SmallAsteroid();
+                        SmallAsteroid tempB = new SmallAsteroid();
+                        SmallAsteroid tempC = new SmallAsteroid();
+                        addObject(tempA,j,k);
+                        addObject(tempB,j,k);
+                        addObject(tempC,j,k);
+                        Random r = new Random(System.currentTimeMillis()+49);
+                        int tempAX = r.nextInt(1024);
+                        int tempAY = r.nextInt(768);
+                        int tempBX = r.nextInt(1024);
+                        int tempBY = r.nextInt(768);
+                        int tempCX = r.nextInt(1024);
+                        int tempCY = r.nextInt(768);
+                        tempA.turnTowards(tempAX,tempAY);
+                        tempB.turnTowards(tempBX,tempBY);
+                        tempC.turnTowards(tempCX,tempCY);
+                    }
+                    else if(b instanceof Laser)
+                    {
+                        removeObject(b);
+                        int j = a.getX();
+                        int k = a.getY();
+                        removeObject(a);
+                        SmallAsteroid tempA = new SmallAsteroid();
+                        SmallAsteroid tempB = new SmallAsteroid();
+                        SmallAsteroid tempC = new SmallAsteroid();
+                        addObject(tempA,j,k);
+                        addObject(tempB,j,k);
+                        addObject(tempC,j,k);
+                        Random r = new Random(System.currentTimeMillis()+509);
+                        int tempAX = r.nextInt(1024);
+                        int tempAY = r.nextInt(768);
+                        int tempBX = r.nextInt(1024);
+                        int tempBY = r.nextInt(768);
+                        int tempCX = r.nextInt(1024);
+                        int tempCY = r.nextInt(768);
+                        tempA.turnTowards(tempAX,tempAY);
+                        tempB.turnTowards(tempBX,tempBY);
+                        tempC.turnTowards(tempCX,tempCY);
+                    }
+                    else if(b instanceof Asteroids)
+                    {
+                        Random r = new Random(System.currentTimeMillis()+977465);
+                        int tempAX = r.nextInt(1024);
+                        int tempAY = r.nextInt(768);
+                        int tempBX = r.nextInt(1024);
+                        int tempBY = r.nextInt(768);
+                        a.turnTowards(tempAX,tempAY);
+                        b.turnTowards(tempBX,tempBY);
+                    }
+                }
+            }
         }
         spaceship.move(control.getThrust());
         controlWeapons.resetRotation();
