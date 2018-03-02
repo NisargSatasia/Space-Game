@@ -50,20 +50,19 @@ public class SpaceshipController
     }
     public void setPos()
     {
-        if(X >= (1008-32)){
+        if(X >= (1008)){
             X = 0;
             spaceship.setLocation((double)X, (double)Y);
-        }else if(X <= (0+32)){
+        }else if(X <= (0)){
             X = 1008;
             spaceship.setLocation((double)X, (double)Y);
-        }else if(Y >= (728-32)){
+        }else if(Y >= (728)){
             Y = 0;
             spaceship.setLocation((double)X, (double)Y);
-        }else if(Y <= (0+32)){
+        }else if(Y <= (0)){
             Y = 32;
             spaceship.setLocation((double)X, (double)Y);
         }
-        spaceship.setLocation((double)X, (double)Y);
     }
     public void hit(boolean b)
     {
