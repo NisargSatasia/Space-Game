@@ -42,7 +42,7 @@ public class GameWorld extends World
         addEnergyBar();
         addObject(spaceship,500,350);
         control = new SpaceshipController(spaceship);
-
+        setPaintOrder(Asteroids.class);
 
 
         crosshair = new Crosshair();
@@ -54,11 +54,11 @@ public class GameWorld extends World
     }
     public void addEnergyBar()
     {
-
+        int y = 728;
+        int x = 1006;
         for(int i=0; i<5;i++)
         {
-            int y = 728;
-            int x = 1006;
+
             addObject(energyBar.get(i),x,y);
             System.out.println("Added energy piece @ "+x+" "+y);
             System.out.println(energyBar.get(i));
@@ -179,8 +179,10 @@ public class GameWorld extends World
                 int locY = rand.nextInt(528)+100;
                 ast.turnTowards(locX,locY);
             }
+            asteroidTimerStart = currentTime;
         }
         List<Actor> intersecting = spaceship.getIntersection();
+
         for(Actor a : intersecting)
         {
             if((a instanceof Laser || a instanceof Asteroids) && !wasHit) {
@@ -194,8 +196,10 @@ public class GameWorld extends World
             }
 
         }
-        for(Actor a : objects)
+
+        for(int i = 0;i<objects.size();i++)
         {
+            Actor a = objects.get(i);
             if(a instanceof LargeAsteroids)
             {
                 List<Actor> temp = ((LargeAsteroids) a).getIntersection();
@@ -245,6 +249,28 @@ public class GameWorld extends World
                         tempA.turnTowards(tempAX,tempAY);
                         tempB.turnTowards(tempBX,tempBY);
                         tempC.turnTowards(tempCX,tempCY);
+                    }
+                    else if(b instanceof Asteroids)
+                    {
+                        Random r = new Random(System.currentTimeMillis()+977465);
+                        int tempAX = r.nextInt(1024);
+                        int tempAY = r.nextInt(768);
+                        int tempBX = r.nextInt(1024);
+                        int tempBY = r.nextInt(768);
+                        a.turnTowards(tempAX,tempAY);
+                        b.turnTowards(tempBX,tempBY);
+                    }
+                }
+            }
+            if(a instanceof SmallAsteroid)
+            {
+                List<Actor> temp = ((SmallAsteroid) a).getIntersection();
+                for(Actor b : temp)
+                {
+                    if(b instanceof Laser)
+                    {
+                        removeObject(b);
+                        removeObject(a);
                     }
                     else if(b instanceof Asteroids)
                     {

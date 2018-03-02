@@ -18,7 +18,7 @@ public class LargeAsteroids extends Asteroids{
     }
     public void act()
     {
-
+        move(5);
     }
 
 
