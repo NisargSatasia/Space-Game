@@ -189,10 +189,12 @@ public class GameWorld extends World
                 gameOver = energy.remove(this);
                 startCooldown = currentTime;
                 wasHit = true;
+                control.hit(true);
             }
             if(currentTime-startCooldown>=damageCooldown && wasHit)
             {
                 wasHit = false;
+                control.hit(false);
             }
 
         }

@@ -65,4 +65,10 @@ public class SpaceshipController
         }
         spaceship.setLocation((double)X, (double)Y);
     }
+    public void hit(boolean b)
+    {
+        if(b)
+            spaceship.setImage("img/SpaceshipHit.png");
+        else spaceship.setImage("img/SpaceshipNoCannon.png");
+    }
 }
