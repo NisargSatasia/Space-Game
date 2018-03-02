@@ -70,9 +70,9 @@ public class GameWorld extends World
     {
 
         // make the actors bound.
-        //if(control.getPosX()>= (1008-32) || control.getPosX()<=(0+32) || control.getPosY()>= (728-32) || control.getPosY()>= (0+32) ){
-        //   control.setPos();
-        //}
+        if(control.getPosX()>= (1008) || control.getPosX()<=0 || control.getPosY()>= 728 || control.getPosY()>= 0){
+           control.setPos();
+        }
         //System.out.println(control.getPosX() + "        " + control.getPosY());
 
 
