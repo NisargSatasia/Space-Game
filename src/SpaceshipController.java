@@ -50,7 +50,9 @@ public class SpaceshipController
     }
     public void setPos()
     {
-        if(spaceship.getX() >= 1008){
+        int x = spaceship.getX();
+        int y = spaceship.getY();
+        /*if(spaceship.getX() >= 1008){
             spaceship.setLocation(0, (double)spaceship.getY());
         }else if(spaceship.getX() <= 0){
             spaceship.setLocation(1008, (double)spaceship.getY());
@@ -58,6 +60,15 @@ public class SpaceshipController
             spaceship.setLocation((double)spaceship.getX(), 0);
         }else if(spaceship.getY() <= 0){
             spaceship.setLocation((double)spaceship.getX(), 728);
+        }*/
+        if(x >= 1008){
+            spaceship.setLocation(0, y);
+        }else if(x <= 0){
+            spaceship.setLocation(1008, y);
+        }else if(y >= 728){
+            spaceship.setLocation(x, 0);
+        }else if(y <= 0){
+            spaceship.setLocation(x, 728);
         }
     }
     public void hit(boolean b)
