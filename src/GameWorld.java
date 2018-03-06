@@ -12,7 +12,7 @@ public class GameWorld extends World
     private ArrayList<Actor> energyBar;
     private EnergyBar energy;
     private boolean gameOver;
-    private Collectable test = new Collectable();
+    //private Collectable test = new Collectable();
     private SpaceshipActor spaceship = new SpaceshipActor();
     private SpaceshipController control;
     private SmallAsteroid smallAsteroid = new SmallAsteroid();
@@ -30,6 +30,7 @@ public class GameWorld extends World
     private Random rand = new Random(System.currentTimeMillis()+32);
     private long asteroidTimer = 2000;
     private long asteroidTimerStart;
+    private int score = 0;
 
     public GameWorld()
     {
@@ -39,7 +40,7 @@ public class GameWorld extends World
         energyBar = energy.getEnergyBar();
         addEnergyBar();
         setBackground("img/background.jpg");
-        addObject(test,100,100);
+        //addObject(test,100,100);
         addEnergyBar();
         addObject(spaceship,500,350);
         control = new SpaceshipController(spaceship);
@@ -51,6 +52,7 @@ public class GameWorld extends World
         weapons = new WeaponsActor();
         addObject(weapons,500,350);
         controlWeapons = new WeaponsController(weapons,crosshair,control);
+
 
     }
     public void addEnergyBar()
@@ -191,6 +193,16 @@ public class GameWorld extends World
                 startCooldown = currentTime;
                 wasHit = true;
                 control.hit(true);
+            }
+            Collectable collectable = new Collectable();
+            System.out.println("Score : " + score);
+            if(a instanceof Collectable){
+                score++;
+                removeObject(collectable);
+                showText("Score: " + score,870,700);
+                int x = (int)(Math.random()*1028);
+                int y = (int)(Math.random()*728);
+                addObject(collectable,x,y);
             }
             if(currentTime-startCooldown>=damageCooldown && wasHit)
             {
